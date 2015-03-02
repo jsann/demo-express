@@ -34,7 +34,7 @@ console.log("Application runing on port " + port);
 mongoose.connect("mongodb://localhost/movies");
 
 //设置路由
-app.get("/", function(request, response){
+app.get("/|/index", function(request, response){
   Movie.fetch(function(error, data){
     if(error){
       console.log(error);
@@ -154,3 +154,9 @@ app.delete("/api/admin/items/delete", function(request, response){
     response.json({success: true});
   })
 })
+
+app.get("*", function(request, response){
+  response.status(404).render("404", {
+    title: "404 - Demo Movie Pages"
+  });
+});
