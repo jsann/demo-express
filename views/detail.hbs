@@ -1,4 +1,13 @@
 <h3>{{title}}</h3>
 {{#with movie}}
   <h4>{{title}}</h4>
+  <p>导演：{{doctor}}</p>
+  <p>语言：{{language}}</p>
+  <p>国家：{{country}}</p>
+  <p>年份：{{year}}</p>
+  <p>简介：{{summary}}</p>
+  <p>视频地址：{{flash}}</p>
+  <p>上传者：{{poster}}</p>
+  <p>创建时间：{{formatDate meta.createAt}}</p>
 {{/with}}
+{{!-- <p><a href="/admin/post/{{movie._id}}">编辑</a></p> --}}

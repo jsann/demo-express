@@ -5,6 +5,8 @@ var bodyParser = require("body-parser");
 
 var path = require("path");
 
+var helpers = require("./helpers/helpers")
+
 var mongoose = require("mongoose");
 var Movie = require("./models/movie");
 
@@ -20,7 +22,8 @@ app.set("views", __dirname + "/views"); //设置视图目录
 app.engine("hbs", exphbs({
   layoutsDir: "layout",
   defaultLayout: "layout",
-  extname: ".hbs"
+  extname: ".hbs",
+  helpers: helpers
 }))
 app.set("view engine", "hbs"); //设置模板引擎
 app.listen(port); //侦听端口
@@ -52,7 +55,7 @@ app.get("/detail/:id", function(request, response){
       return false;
     }
     response.render("detail", {
-      title: data.title + " Detail - Demo Movie Pages",
+      title: data.title + " - Detail - Demo Movie Pages",
       movie: data
     })
   })
