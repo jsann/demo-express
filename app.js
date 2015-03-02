@@ -15,7 +15,7 @@ var _ = require("underscore");
 var handlebars = require("express-handlebars");
 
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname + "/public")))
+app.use(express.static(path.join(__dirname + "/public"))); //设置静态文件目录
 app.set("views", __dirname + "/views"); //设置视图目录
 
 //由于express默认不支持handlebars，故而需要注册模板引擎
@@ -34,7 +34,7 @@ console.log("Application runing on port " + port);
 mongoose.connect("mongodb://localhost/movies");
 
 //设置路由
-app.get("/|/index", function(request, response){
+app.get("^/$|^/index$", function(request, response){
   Movie.fetch(function(error, data){
     if(error){
       console.log(error);
