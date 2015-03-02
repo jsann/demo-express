@@ -1,5 +1,6 @@
 <h3>{{title}}</h3>
 <form method="post" action="/api/admin/movie/set">
+  <input type="hidden" name="movie[id]" value="{{movie.id}}">
   <ul>
     <li><label>标题：</label><input type="text" name="movie[title]" value="{{movie.title}}"></li>
     <li><label>导演：</label><input type="text" name="movie[doctor]" value="{{movie.doctor}}"></li>
@@ -10,5 +11,5 @@
     <li><label>视频地址：</label><input type="text" name="movie[flash]" value="{{movie.flash}}"></li>
     <li><label>上传者：</label><input type="text" name="movie[poster]" value="{{movie.poster}}"></li>
   </ul>
-  <input type="submit" value="提交">
+  <input type="submit" value="{{#if movie}}保存{{else}}添加{{/if}}">
 </form>

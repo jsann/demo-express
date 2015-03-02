@@ -12,14 +12,14 @@ var Movie = require("./models/movie");
 
 var _ = require("underscore");
 
-var exphbs = require("express-handlebars");
+var handlebars = require("express-handlebars");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname + "/public")))
 app.set("views", __dirname + "/views"); //设置视图目录
 
 //由于express默认不支持handlebars，故而需要注册模板引擎
-app.engine("hbs", exphbs({
+app.engine("hbs", handlebars({
   layoutsDir: "layout",
   defaultLayout: "layout",
   extname: ".hbs",
@@ -89,7 +89,7 @@ app.post("/api/admin/movie/set", function(request, response){
   var movieObject = request.body.movie;
   var id = movieObject.id;
   var _movie;
-  if(id !== undefined){ //判断数据是否存在，存在则需要进行更新操作，否则为新增操作
+  if(id){ //判断数据是否存在，存在则需要进行更新操作，否则为新增操作
     Movie.findById(id, function(error, data){
       if(error){
         console.log(error);
@@ -125,9 +125,23 @@ app.post("/api/admin/movie/set", function(request, response){
 })
 
 app.get("/admin/post", function(request, response){
-  response.render("admin/post", {
-    title: "Post - Demo Movie Pages"
-  })
+  var id = request.query.id;
+  if(id){
+    Movie.findById(id, function(error, data){
+      if(error){
+        console.log(error);
+        return false;
+      }
+      response.render("admin/post", {
+        title: "Post - Demo Movie Pages",
+        movie: data
+      });
+    });
+  }else{
+    response.render("admin/post", {
+      title: "Post - Demo Movie Pages"
+    })
+  }
 })
 
 app.delete("/api/admin/items/delete", function(request, response){
