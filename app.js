@@ -40,7 +40,7 @@ app.get("^/$|^/index$", function(request, response){
       console.log(error);
     }
     response.render("index", {
-      title: "Index - Demo Movie Pages",
+      title: "Index",
       movies: data
     })
   })
@@ -55,9 +55,21 @@ app.get("/detail/:id", function(request, response){
       return false;
     }
     response.render("detail", {
-      title: data.title + " - Detail - Demo Movie Pages",
+      title: data.title + " - Detail",
       movie: data
     })
+  })
+})
+
+app.get("/register", function(request, response){
+  response.render("register", {
+    title: "Register"
+  });
+})
+
+app.get("/login", function(request, response){
+  response.render("login", {
+    title: "Login"
   })
 })
 
@@ -68,7 +80,7 @@ app.get("/admin/", function(request, response){
       return false;
     }
     response.render("admin/list", {
-      title: "Admin - Demo Movie Pages",
+      title: "Admin",
       movies: data
     })
   })
@@ -133,13 +145,13 @@ app.get("/admin/post", function(request, response){
         return false;
       }
       response.render("admin/post", {
-        title: "Post - Demo Movie Pages",
+        title: "Post",
         movie: data
       });
     });
   }else{
     response.render("admin/post", {
-      title: "Post - Demo Movie Pages"
+      title: "Post"
     })
   }
 })
@@ -157,6 +169,6 @@ app.delete("/api/admin/items/delete", function(request, response){
 
 app.get("*", function(request, response){
   response.status(404).render("404", {
-    title: "404 - Demo Movie Pages"
+    title: "404"
   });
 });
