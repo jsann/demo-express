@@ -1,21 +1,20 @@
 //端口从命令行获取‘PORT’参数 或者 默认值为3000
 var express = require("express"), port = process.env.PORT || 3000, app = express();
 
-var bodyParser = require("body-parser");
+var bodyParser = require("body-parser"),
+    path = require("path"),
+    handlebars = require("express-handlebars"),
+    mongoose = require("mongoose"),
+    _ = require("underscore");
 
-var path = require("path");
+var helpers = require("./helpers/helpers");
 
-var helpers = require("./helpers/helpers")
-
-var mongoose = require("mongoose");
-var Movie = require("./models/movie");
-
-var _ = require("underscore");
-
-var handlebars = require("express-handlebars");
+var Movie = require("./models/movie"),
+    User = require("./models/user");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname + "/public"))); //设置静态文件目录
+
 app.set("views", __dirname + "/views"); //设置视图目录
 
 //由于express默认不支持handlebars，故而需要注册模板引擎
@@ -26,6 +25,7 @@ app.engine("hbs", handlebars({
   helpers: helpers
 }))
 app.set("view engine", "hbs"); //设置模板引擎
+
 app.listen(port); //侦听端口
 
 console.log("Application runing on port " + port);
