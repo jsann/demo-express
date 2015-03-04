@@ -1,4 +1,6 @@
 <h3>{{title}}</h3>
+<p>欢迎你，{{name}}</p>
+<div><a href="/admin/post">添加</a></div>
 <ul>
   {{#each movies}}
     <li class="item-{{id}}"><a href="/detail/{{id}}">{{title}}</a> <a href="/admin/post?id={{id}}">EDIT</a> | <a class="js-delete-item" data-id="{{id}}" href="javascript:;">DELETE</a></li>

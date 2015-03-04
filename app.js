@@ -35,6 +35,12 @@ console.log("Application runing on port " + port);
 //链接数据库
 mongoose.connect("mongodb://localhost/demo-movies");
 
+app.use(session({
+  secret: "demo-express",
+  resave: false,
+  saveUninitialized: false
+}))
+
 //设置路由
 app.get("^/$|^/index$", function(request, response){
   Movie.fetch(function(error, data){
@@ -104,6 +110,7 @@ app.post("/api/user/login", function(request, response){
       return false;
     }
     if(data){
+      request.session.loginer = data.name;
       response.send({result: true});
     }else{
       response.send({result: false, responseText: "用户名或者密码错误"});
@@ -112,15 +119,43 @@ app.post("/api/user/login", function(request, response){
 });
 
 app.get("/admin/", function(request, response){
-  Movie.fetch(function(error, data){
+  var loginer = request.session.loginer;
+  if(loginer){
+    Movie.fetch(function(error, data){
+      if(error){
+        console.log(error);
+        return false;
+      }
+      response.render("admin/list", {
+        title: "Admin",
+        name: loginer,
+        movies: data
+      });
+    });
+  }else{
+    response.redirect("/admin/login");
+  }
+});
+
+app.get("/admin/login", function(request, response){
+  response.render("admin/login", {
+    title: "Login - Admin"
+  });
+});
+
+app.post("/api/admin/user/login", function(request, response){
+  var u = _.extend(request.body, {type: 0});
+  User.findOne(u, function(error, data){
     if(error){
       console.log(error);
       return false;
     }
-    response.render("admin/list", {
-      title: "Admin",
-      movies: data
-    });
+    if(data){
+      request.session.loginer = data.name;
+      response.send({result: true});
+    }else{
+      response.send({result: false, responseText: "用户名或者密码错误"});
+    }
   });
 });
 
