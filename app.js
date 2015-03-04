@@ -2,6 +2,8 @@
 var express = require("express"), port = process.env.PORT || 3000, app = express();
 
 var bodyParser = require("body-parser"),
+    cookieParser = require("cookie-parser"),
+    session = require("express-session"),
     path = require("path"),
     handlebars = require("express-handlebars"),
     mongoose = require("mongoose"),
@@ -96,7 +98,17 @@ app.post("/api/user/register", function(request, response){
 
 app.post("/api/user/login", function(request, response){
   var u = request.body;
-  response.send({result: false, responseText: "用户名或者密码错误"});
+  User.findOne(u, function(error, data){
+    if(error){
+      console.log(error);
+      return false;
+    }
+    if(data){
+      response.send({result: true});
+    }else{
+      response.send({result: false, responseText: "用户名或者密码错误"});
+    }
+  });
 });
 
 app.get("/admin/", function(request, response){

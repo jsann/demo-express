@@ -1,0 +1,81 @@
+body {
+  font-size: 14px;
+  color: #666;
+}
+
+.clear {
+  zoom: 1;
+}
+.clear:after {
+  content: "\20";
+  display: block;
+  clear: both;
+  height: 0;
+}
+
+header {
+  height: 25px;
+  line-height: 25px;
+  color: #eee;
+  background-color: #333;
+  box-shadow: rgba(0, 0, 0, .3) 0 1px 2px;
+}
+header a {
+  color: #fff;
+}
+header h1 {
+  float: left;
+  margin-left: 10px;
+}
+header .control {
+  float: right;
+  margin-right: 10px;
+}
+
+.warpper {
+  margin: 25px 0 50px;
+}
+
+.sign-wrap {
+  margin: 25px 10px 50px;
+  overflow: auto;
+}
+.sign-wrap ul {
+}
+.sign-wrap ul li {
+  margin: 10px 0;
+  line-height: 25px;
+}
+.sign-wrap ul label {
+  width: 100px;
+  text-align: right;
+  margin-right: 10px;
+  display: inline-block;
+  zoom: 1;
+}
+.sign-wrap ul input[type=text], .sign-wrap ul input[type=password] {
+  height: 25px;
+  width: 200px;
+  padding: 0 5px;
+}
+.sign-wrap ul input[type=submit] {
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  border: #ccc solid 1px;
+  background-color: #fefefe;
+}
+.sign-wrap ul .note {
+  color: #999;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+footer {
+  color: #ccc;
+  padding: 10px 0;
+  line-height: 1.8em;
+  text-align: center;
+  background-color: #666;
+  box-shadow: rgba(0, 0, 0, .3) 0 -1px 2px;
+}
