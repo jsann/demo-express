@@ -31,7 +31,7 @@ app.listen(port); //侦听端口
 console.log("Application runing on port " + port);
 
 //链接数据库
-mongoose.connect("mongodb://localhost/movies");
+mongoose.connect("mongodb://localhost/demo-movies");
 
 //设置路由
 app.get("^/$|^/index$", function(request, response){
@@ -42,9 +42,9 @@ app.get("^/$|^/index$", function(request, response){
     response.render("index", {
       title: "Index",
       movies: data
-    })
-  })
-})
+    });
+  });
+});
 
 app.get("/detail/:id", function(request, response){
   var id = mongoose.Types.ObjectId(request.params.id)//request.params.id; //获取id参数
@@ -57,21 +57,47 @@ app.get("/detail/:id", function(request, response){
     response.render("detail", {
       title: data.title + " - Detail",
       movie: data
-    })
-  })
-})
+    });
+  });
+});
 
 app.get("/register", function(request, response){
   response.render("register", {
     title: "Register"
   });
-})
+});
 
 app.get("/login", function(request, response){
   response.render("login", {
     title: "Login"
-  })
-})
+  });
+});
+
+app.post("/api/user/register", function(request, response){
+  var u = request.body;
+  User.find(u, function(error, data){
+    if(error){
+      console.log(error);
+      return false;
+    }
+    if(data.length){
+      response.send({result: false, responseText: "用户名已存在"});
+    }else{
+      User.create(u, function(error, data){
+        if(error){
+          console.log(error);
+          return false;
+        }
+        response.send({result: true, data: _.omit(data, "password")});
+      });
+    }
+  });
+});
+
+app.post("/api/user/login", function(request, response){
+  var u = request.body;
+  response.send({result: false, responseText: "用户名或者密码错误"});
+});
 
 app.get("/admin/", function(request, response){
   Movie.fetch(function(error, data){
@@ -82,9 +108,9 @@ app.get("/admin/", function(request, response){
     response.render("admin/list", {
       title: "Admin",
       movies: data
-    })
-  })
-})
+    });
+  });
+});
 
 app.get("/api/admin/movie/get/:id", function(request, response){
   var id = response.params.id;
@@ -92,9 +118,9 @@ app.get("/api/admin/movie/get/:id", function(request, response){
     response.render("admin/post", {
       title: data.title + " Post - Dome Movie Pages",
       movie: data
-    })
-  })
-})
+    });
+  });
+});
 
 //添加新数据
 app.post("/api/admin/movie/set", function(request, response){
@@ -114,7 +140,7 @@ app.post("/api/admin/movie/set", function(request, response){
         }
         response.redirect("/detail/" + movie.id); //跳转到详情页面
       })
-    })
+    });
   }else{
     _movie = new Movie({
       //_id: id,
@@ -132,9 +158,9 @@ app.post("/api/admin/movie/set", function(request, response){
         console.log(error);
       }
       response.redirect("/detail/" + movie.id);
-    })
+    });
   }
-})
+});
 
 app.get("/admin/post", function(request, response){
   var id = request.query.id;
@@ -152,9 +178,9 @@ app.get("/admin/post", function(request, response){
   }else{
     response.render("admin/post", {
       title: "Post"
-    })
+    });
   }
-})
+});
 
 app.delete("/api/admin/items/delete", function(request, response){
   var id = mongoose.Types.ObjectId(request.query.id);
@@ -164,8 +190,8 @@ app.delete("/api/admin/items/delete", function(request, response){
       return false;
     }
     response.json({success: true});
-  })
-})
+  });
+});
 
 app.get("*", function(request, response){
   response.status(404).render("404", {
