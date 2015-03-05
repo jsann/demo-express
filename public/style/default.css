@@ -1,25 +1,5 @@
 body {
-  font-size: 14px;
-  color: #3c4c55;
   overflow: hidden;
-}
-
-a {
-  color: #3c4c55;
-}
-
-.clear {
-  zoom: 1;
-}
-.clear:after {
-  content: "\20";
-  display: block;
-  clear: both;
-  height: 0;
-}
-
-.iconfont {
-  font-size: 14px !important;
 }
 
 .menus {

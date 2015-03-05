@@ -4,12 +4,18 @@ var MovieSchemas = new mongoose.Schema({
   // _id: Number,
   title: String, //标题
   doctor: String, //导演
+  actor: [String], //演员
+  studio: String, //制片厂
+  long: Number, //片长
   language: String, //语言
   country: String, //国家
   year: Number, //年份
   summary: String, //简介
   flash: String, //视频地址
-  poster: String, //上传者
+  poster: String, //海报
+  drawings: String, //题图
+  uploader: String, //上传者
+  type: {type: Number, default: 1}, //1为普通，2为专题
   meta: {
     createAt: { //创建时间
       type: Date,

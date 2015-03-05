@@ -23,6 +23,7 @@ app.set("views", __dirname + "/views"); //设置视图目录
 app.engine("hbs", handlebars({
   layoutsDir: "layout",
   defaultLayout: "layout",
+  partialsDir: "layout/partials",
   extname: ".hbs",
   helpers: helpers
 }))
@@ -56,15 +57,29 @@ app.get("^/$|^/index$", function(request, response){
 });
 
 app.get("/detail/:id", function(request, response){
-  var id = mongoose.Types.ObjectId(request.params.id)//request.params.id; //获取id参数
+  var id = mongoose.Types.ObjectId(request.params.id); //获取id参数
   Movie.findById(id, function(error, data){
-    // console.log(error, data)
     if(error){
       console.log(error);
       return false;
     }
     response.render("detail", {
-      title: data.title + " - Detail",
+      title: data.title,
+      movie: data
+    });
+  });
+});
+
+app.get("/special/:id", function(request, response){
+  var id = mongoose.Types.ObjectId(request.params.id);
+  Movie.findById(id, function(error, data){
+    if(error){
+      console.log(error);
+      return false;
+    }
+    response.render("special", {
+      title: data.title,
+      layout: "special_layout",
       movie: data
     });
   });
@@ -211,22 +226,28 @@ app.post("/api/admin/movie/set", function(request, response){
 });
 
 app.get("/admin/post", function(request, response){
-  var id = request.query.id;
-  if(id){
-    Movie.findById(id, function(error, data){
-      if(error){
-        console.log(error);
-        return false;
-      }
+  var loginer = request.session.loginer;
+  if(loginer){
+    var id = request.query.id;
+    if(id){
+      Movie.findById(id, function(error, data){
+        if(error){
+          console.log(error);
+          return false;
+        }
+        response.render("admin/post", {
+          title: "Post",
+          movie: data
+        });
+      });
+    }else{
       response.render("admin/post", {
         title: "Post",
-        movie: data
+        _USER_: loginer
       });
-    });
+    }
   }else{
-    response.render("admin/post", {
-      title: "Post"
-    });
+    response.redirect("/admin/login");
   }
 });
 
@@ -237,7 +258,7 @@ app.delete("/api/admin/items/delete", function(request, response){
       console.log(error);
       return false;
     }
-    response.json({success: true});
+    response.send({result: true});
   });
 });
 
