@@ -1,15 +1,17 @@
-<h3>{{title}}</h3>
-<form method="post" action="/api/admin/movie/set">
-  <input type="hidden" name="movie[id]" value="{{movie.id}}">
-  <ul>
-    <li><label>标题：</label><input type="text" name="movie[title]" value="{{movie.title}}"></li>
-    <li><label>导演：</label><input type="text" name="movie[doctor]" value="{{movie.doctor}}"></li>
-    <li><label>语言：</label><input type="text" name="movie[language]" value="{{movie.language}}"></li>
-    <li><label>国家：</label><input type="text" name="movie[country]" value="{{movie.country}}"></li>
-    <li><label>年份：</label><input type="text" name="movie[year]" value="{{movie.year}}"></li>
-    <li><label>简介：</label><input type="text" name="movie[summary]" value="{{movie.summary}}"></li>
-    <li><label>视频地址：</label><input type="text" name="movie[flash]" value="{{movie.flash}}"></li>
-    <li><label>上传者：</label><input type="text" name="movie[poster]" value="{{movie.poster}}"></li>
-  </ul>
-  <input type="submit" value="{{#if movie}}保存{{else}}添加{{/if}}">
-</form>
+<div class="wrapper">
+  <h3>{{title}}</h3>
+  <form method="post" action="/api/admin/movie/set">
+    <input type="hidden" name="movie[id]" value="{{movie.id}}">
+    <ul>
+      <li><label>标题：</label><input type="text" name="movie[title]" value="{{movie.title}}"></li>
+      <li><label>导演：</label><input type="text" name="movie[doctor]" value="{{movie.doctor}}"></li>
+      <li><label>语言：</label><input type="text" name="movie[language]" value="{{movie.language}}"></li>
+      <li><label>国家：</label><input type="text" name="movie[country]" value="{{movie.country}}"></li>
+      <li><label>年份：</label><input type="text" name="movie[year]" value="{{movie.year}}"></li>
+      <li><label>简介：</label><input type="text" name="movie[summary]" value="{{movie.summary}}"></li>
+      <li><label>视频地址：</label><input type="text" name="movie[flash]" value="{{movie.flash}}"></li>
+      <li><label>上传者：</label><input type="text" name="movie[poster]" value="{{movie.poster}}"></li>
+    </ul>
+    <input type="submit" value="{{#if movie}}保存{{else}}添加{{/if}}">
+  </form>
+</div>
