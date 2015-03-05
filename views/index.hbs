@@ -1,8 +1,15 @@
-<h3>{{title}}</h3>
-<ul>
-  {{#each movies}}
-    <li>
-      <h4><a href="/detail/{{id}}">{{title}}</a></h4>
-    </li>
-  {{/each}}
-</ul>
+<div class="side">
+  <div class="loginer"><img src="{{_USER_.avatar}}" alt=""><a href="#">{{_USER_.name}}</a><a href="javascript:;" class="login-out iconfont icon-out"></a></div>
+</div>
+<div class="wrapper">
+  <div class="wrap-header">
+    <h3>{{title}}</h3>
+  </div>
+  <ul>
+    {{#each movies}}
+      <li>
+        <h4><a href="/detail/{{id}}">{{title}}</a></h4>
+      </li>
+    {{/each}}
+  </ul>
+</div>

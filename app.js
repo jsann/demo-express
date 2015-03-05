@@ -49,6 +49,7 @@ app.get("^/$|^/index$", function(request, response){
     }
     response.render("index", {
       title: "Index",
+      _USER_: request.session.loginer,
       movies: data
     });
   });
@@ -110,7 +111,7 @@ app.post("/api/user/login", function(request, response){
       return false;
     }
     if(data){
-      request.session.loginer = data.name;
+      request.session.loginer = data;
       response.send({result: true});
     }else{
       response.send({result: false, responseText: "用户名或者密码错误"});
@@ -128,7 +129,7 @@ app.get("/admin/", function(request, response){
       }
       response.render("admin/list", {
         title: "Admin",
-        name: loginer,
+        _USER_: loginer,
         movies: data
       });
     });
@@ -151,7 +152,7 @@ app.post("/api/admin/user/login", function(request, response){
       return false;
     }
     if(data){
-      request.session.loginer = data.name;
+      request.session.loginer = data;
       response.send({result: true});
     }else{
       response.send({result: false, responseText: "用户名或者密码错误"});

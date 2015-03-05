@@ -1,6 +1,11 @@
 body {
   font-size: 14px;
-  color: #666;
+  color: #3c4c55;
+  overflow: hidden;
+}
+
+a {
+  color: #3c4c55;
 }
 
 .clear {
@@ -13,27 +18,49 @@ body {
   height: 0;
 }
 
-header {
-  height: 25px;
-  line-height: 25px;
-  color: #eee;
-  background-color: #333;
-  box-shadow: rgba(0, 0, 0, .3) 0 1px 2px;
-}
-header a {
-  color: #fff;
-}
-header h1 {
-  float: left;
-  margin-left: 10px;
-}
-header .control {
-  float: right;
-  margin-right: 10px;
+.iconfont {
+  font-size: 14px !important;
 }
 
-.warpper {
-  margin: 25px 0 50px;
+.menus {
+  float: left;
+  width: 200px;
+  padding-bottom: 1000px;
+  margin-bottom: -1000px;
+  background-color: #11171c;
+}
+.menus header {
+  font-size: 32px;
+  color: #edf0f2;
+  padding-left: 32px;
+  height: 85px;
+  line-height: 85px;
+  background-color: #cc4d4d;
+}
+.menus ul {
+  padding: 16px 16px 0;
+}
+.menus ul li a {
+  padding: 5px 16px;
+  display: block;
+  color: #fff;
+  border-radius: 3px;
+}
+.menus ul li a:hover {
+  background-color: #1c242b;
+}
+
+.wrapper {
+  padding: 0 32px;
+  overflow: hidden;
+  zoom: 1;
+}
+.wrapper .wrap-header {
+  height: 85px;
+  line-height: 85px;
+}
+.wrapper .wrap-header h3 {
+  font-size: 32px;
 }
 
 .sign-wrap {
@@ -69,6 +96,34 @@ header .control {
   color: #999;
   font-size: 12px;
   margin-left: 10px;
+}
+
+.side {
+  float: right;
+  width: 220px;
+  padding-bottom: 1000px;
+  margin-bottom: -1000px;
+  background-color: #ecedef;
+}
+.side .loginer {
+  padding: 0 32px;
+  height: 85px;
+  line-height: 85px;
+  color: #fff;
+  background-color: #74c0c8;
+}
+.side .loginer img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+  border-radius: 50%;
+}
+.side .loginer a {
+  color: #fff;
+}
+.side .loginer .login-out {
+  float: right;
 }
 
 footer {
