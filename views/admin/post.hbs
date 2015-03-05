@@ -1,5 +1,7 @@
 <div class="wrapper">
-  <h3>{{title}}</h3>
+  <div class="wrap-header">
+    <h3>{{title}}</h3>
+  </div>
   <form method="post" action="/api/admin/movie/set">
     <input type="hidden" name="movie[id]" value="{{movie.id}}">
     <ul>
