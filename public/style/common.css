@@ -18,11 +18,11 @@ a {
   height: 0;
 }
 
-::-moz-selection {
+::-webkit-selection {
   background-color: #cc4d4d;
   color: #fff;
 }
-::-webkit-selection {
+::-moz-selection {
   background-color: #cc4d4d;
   color: #fff;
 }

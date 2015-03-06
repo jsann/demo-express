@@ -137,23 +137,57 @@ html, body {
   position: absolute;
   top: 0;
 }
-.movie-list li .poster .other .time-loading, .movie-list li .poster .other .time-loading:after {
+.movie-list li .poster .other .time-loading,
+.movie-list li .poster .other .time-loading .left,
+.movie-list li .poster .other .time-loading .left:after,
+.movie-list li .poster .other .time-loading .right,
+.movie-list li .poster .other .time-loading .right:after {
   display: inline-block;
-  width: 15px;
-  height: 15px;
   border-radius: 50%;
   position: absolute;
-}
-.movie-list li .poster .other .time-loading {
-  border: #bbb solid 2px;
-  right: 10px;
-  top: 10px;
-}
-.movie-list li .poster .other .time-loading:after {
-  content: "\20";
-  border: #eee solid 2px;
   top: -2px;
   right: -2px;
+}
+.movie-list li .poster .other .time-loading {
+  right: 10px;
+  top: 10px;
+  width: 12px;
+  height: 12px;
+  border: #ccc solid 2px;
+}
+.movie-list li .poster .other .time-loading .left,
+.movie-list li .poster .other .time-loading .left:after,
+.movie-list li .poster .other .time-loading .right,
+.movie-list li .poster .other .time-loading .right:after {
+  width: 16px;
+  height: 16px;
+}
+.movie-list li .poster .other .time-loading .left:after,
+.movie-list li .poster .other .time-loading .right:after {
+  right: 0;
+  top: 0;
+  background-color: #000;
+  content: "\20";
+}
+.movie-list li .poster .other .time-loading .left,
+.movie-list li .poster .other .time-loading .left:after {
+  clip: rect(0, 8px, 16px, 0);
+}
+.movie-list li .poster .other .time-loading .left:after {
+  transition: all 2s 1.7s;
+}
+.movie-list li .poster:hover .other .time-loading .left:after {
+  transform: rotate(180deg);
+}
+.movie-list li .poster .other .time-loading .right,
+.movie-list li .poster .other .time-loading .right:after {
+  clip: rect(0, 16px, 16px, 8px);
+}
+.movie-list li .poster .other .time-loading .right:after {
+  transition: all 2s;
+}
+.movie-list li .poster:hover .other .time-loading .right:after {
+  transform: rotate(180deg);
 }
 .movie-list li .poster .other .play {
   font-size: 32px !important;
