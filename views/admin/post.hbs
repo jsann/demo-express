@@ -2,15 +2,33 @@
   <div class="wrap-header">
     <h3>{{title}}</h3>
   </div>
-  <form method="post" action="/api/admin/movie/set">
+  <form class="movie-post">
     <input type="hidden" name="movie[id]" value="{{movie.id}}">
     <ul>
       <li><label>标题：</label><input type="text" name="movie[title]" value="{{movie.title}}"></li>
+      <li><label>译名：</label><input type="text" name="movie[transname]" value="{{movie.transname}}"></li>
       <li><label>导演：</label><input type="text" name="movie[doctor]" value="{{movie.doctor}}"></li>
       <li><label>演员：</label><input type="text" name="movie[actor]" value="{{movie.actor}}"></li>
-      <li><label>制片厂：</label><input type="text" name="movie[studio]" value="{{movie.studio}}"></li>
       <li><label>语言：</label><input type="text" name="movie[language]" value="{{movie.language}}"></li>
       <li><label>国家：</label><input type="text" name="movie[country]" value="{{movie.country}}"></li>
+      <li>
+        <label>类别：</label>
+        <select name="movie[class]">
+          <option value="0">请选择...</option>
+          <option {{#equals movie.class 1}}selected="selected"{{/equals}} value="1">动作</option>
+          <option {{#equals movie.class 2}}selected="selected"{{/equals}} value="2">喜剧</option>
+          <option {{#equals movie.class 3}}selected="selected"{{/equals}} value="3">爱情</option>
+          <option {{#equals movie.class 4}}selected="selected"{{/equals}} value="4">科幻</option>
+          <option {{#equals movie.class 5}}selected="selected"{{/equals}} value="5">剧情</option>
+          <option {{#equals movie.class 6}}selected="selected"{{/equals}} value="6">悬疑</option>
+          <option {{#equals movie.class 7}}selected="selected"{{/equals}} value="7">文艺</option>
+          <option {{#equals movie.class 8}}selected="selected"{{/equals}} value="8">战争</option>
+          <option {{#equals movie.class 9}}selected="selected"{{/equals}} value="9">恐怖</option>
+          <option {{#equals movie.class 10}}selected="selected"{{/equals}} value="10">灾难</option>
+          <option {{#equals movie.class 11}}selected="selected"{{/equals}} value="12">动漫</option>
+          <option {{#equals movie.class 12}}selected="selected"{{/equals}} value="13">综艺</option>
+        </select>
+      </li>
       <li><label>年份：</label><input type="text" name="movie[year]" value="{{movie.year}}"></li>
       <li><label>片长：</label><input type="text" name="movie[long]" value="{{movie.long}}"></li>
       <li><label>简介：</label><input type="text" name="movie[summary]" value="{{movie.summary}}"></li>
