@@ -3,12 +3,13 @@ var mongoose = require("mongoose");
 var MovieSchemas = new mongoose.Schema({
   // _id: Number,
   title: String, //标题
+  transname: String, //译名
   doctor: String, //导演
   actor: [String], //演员
-  studio: String, //制片厂
   long: Number, //片长
   language: String, //语言
   country: String, //国家
+  class: Number, //类别
   year: Number, //年份
   summary: String, //简介
   flash: String, //视频地址

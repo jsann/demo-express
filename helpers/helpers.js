@@ -3,9 +3,9 @@ var moment = require("moment");
 var helpers = {
   equals: function(context1, context2, options){
     if(context1 == context2){
-      return options.fn();
+      return options.fn(this);
     }else{
-      return options.inverse();
+      return options.inverse(this);
     }
   },
   formatDate: function(date){
