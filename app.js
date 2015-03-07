@@ -6,13 +6,13 @@ var bodyParser = require("body-parser"),
     session = require("express-session"),
     path = require("path"),
     handlebars = require("express-handlebars"),
-    mongoose = require("mongoose"),
-    _ = require("underscore");
+    mongoose = require("mongoose");
 
 var helpers = require("./helpers/helpers");
 
-var Movie = require("./models/movie"),
-    User = require("./models/user");
+var RenderRoutes = require("./routes/render"),
+    UserRoutes = require("./routes/user"),
+    MovieRoutes = require("./routes/movie.js");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname + "/public"))); //设置静态文件目录
@@ -23,7 +23,7 @@ app.set("views", __dirname + "/views"); //设置视图目录
 app.engine("hbs", handlebars({
   layoutsDir: "layout",
   defaultLayout: "layout",
-  partialsDir: "layout/partials",
+  partialsDir: "partials",
   extname: ".hbs",
   helpers: helpers
 }))
@@ -43,224 +43,38 @@ app.use(session({
 }))
 
 //设置路由
-app.get("^/$|^/index$", function(request, response){
-  Movie.fetch(function(error, data){
-    if(error){
-      console.log(error);
-    }
-    response.render("index", {
-      title: "Index",
-      _USER_: request.session.loginer,
-      movies: data
-    });
-  });
-});
+app.get("/", RenderRoutes.index);
+app.get("/index", RenderRoutes.index);
 
-app.get("/detail/:id", function(request, response){
-  var id = mongoose.Types.ObjectId(request.params.id); //获取id参数
-  Movie.findById(id, function(error, data){
-    if(error){
-      console.log(error);
-      return false;
-    }
-    response.render("detail", {
-      title: data.title,
-      movie: data
-    });
-  });
-});
+app.get("/detail/:id", RenderRoutes.detail);
 
-app.get("/special/:id", function(request, response){
-  var id = mongoose.Types.ObjectId(request.params.id);
-  Movie.findById(id, function(error, data){
-    if(error){
-      console.log(error);
-      return false;
-    }
-    response.render("special", {
-      title: data.title,
-      layout: "special_layout",
-      movie: data
-    });
-  });
-});
+app.get("/special/:id", RenderRoutes.special);
 
-app.get("/register", function(request, response){
-  response.render("register", {
-    title: "Register"
-  });
-});
+app.get("/register", RenderRoutes.register);
 
-app.get("/login", function(request, response){
-  response.render("login", {
-    title: "Login"
-  });
-});
+app.get("/login", RenderRoutes.login);
 
-app.post("/api/user/register", function(request, response){
-  var u = request.body;
-  User.find(u, function(error, data){
-    if(error){
-      console.log(error);
-      return false;
-    }
-    if(data.length){
-      response.send({result: false, responseText: "用户名已存在"});
-    }else{
-      User.create(u, function(error, data){
-        if(error){
-          console.log(error);
-          return false;
-        }
-        response.send({result: true, data: _.omit(data, "password")});
-      });
-    }
-  });
-});
+app.post("/api/user/register", UserRoutes.register);
 
-app.post("/api/user/login", function(request, response){
-  var u = request.body;
-  User.findOne(u, function(error, data){
-    if(error){
-      console.log(error);
-      return false;
-    }
-    if(data){
-      request.session.loginer = data;
-      response.send({result: true});
-    }else{
-      response.send({result: false, responseText: "用户名或者密码错误"});
-    }
-  });
-});
+app.post("/api/user/login", UserRoutes.login);
 
-app.get("/admin/", function(request, response){
-  var loginer = request.session.loginer;
-  if(loginer){
-    Movie.fetch(function(error, data){
-      if(error){
-        console.log(error);
-        return false;
-      }
-      response.render("admin/list", {
-        title: "Admin",
-        _USER_: loginer,
-        movies: data
-      });
-    });
-  }else{
-    response.redirect("/admin/login");
-  }
-});
+app.get("/user", RenderRoutes.user);
 
-app.get("/admin/login", function(request, response){
-  response.render("admin/login", {
-    title: "Login - Admin"
-  });
-});
+app.get("/admin/", RenderRoutes.admin);
 
-app.post("/api/admin/user/login", function(request, response){
-  var u = _.extend(request.body, {type: 0});
-  User.findOne(u, function(error, data){
-    if(error){
-      console.log(error);
-      return false;
-    }
-    if(data){
-      request.session.loginer = data;
-      response.send({result: true});
-    }else{
-      response.send({result: false, responseText: "用户名或者密码错误"});
-    }
-  });
-});
+app.get("/admin/login", RenderRoutes.adminLogin);
 
-app.get("/api/admin/movie/get/:id", function(request, response){
-  var id = response.params.id;
-  Movie.findById(id, function(error, data){
-    response.render("admin/post", {
-      title: data.title + " Post - Dome Movie Pages",
-      movie: data
-    });
-  });
-});
+app.post("/api/admin/user/login", UserRoutes.adminLogin);
+
+app.get("/api/admin/movie/get/:id", MovieRoutes.get);
 
 //添加新数据
-app.post("/api/admin/movie/set", function(request, response){
-  var movieObject = request.body.movie;
-  var id = movieObject.id;
-  var _movie;
-  if(id){ //判断数据是否存在，存在则需要进行更新操作，否则为新增操作
-    Movie.findById(id, function(error, data){
-      if(error){
-        console.log(error);
-      }
-      _movie = _.extend(data, movieObject); //用新的数据替换掉数据库里的数据
+app.post("/api/admin/movie/set", MovieRoutes.set);
 
-      _movie.save(function(error, movie){ //保存数据
-        if(error){
-          console.log(error);
-        }
-        response.redirect("/detail/" + movie.id); //跳转到详情页面
-      })
-    });
-  }else{
-    _movie = new Movie({
-      //_id: id,
-      title: movieObject.title,
-      doctor: movieObject.doctor,
-      language: movieObject.language,
-      country: movieObject.country,
-      year: movieObject.year,
-      summary: movieObject.summary,
-      flash: movieObject.flash,
-      poster: movieObject.poster
-    }); //实例化数据模型
-    _movie.save(function(error, movie){
-      if(error){
-        console.log(error);
-      }
-      response.redirect("/detail/" + movie.id);
-    });
-  }
-});
+app.get("/admin/post", RenderRoutes.adminPost);
+app.get("/admin/post/:id", RenderRoutes.adminPost);
 
-app.get("/admin/post", function(request, response){
-  var loginer = request.session.loginer;
-  if(loginer){
-    var id = request.query.id;
-    if(id){
-      Movie.findById(id, function(error, data){
-        if(error){
-          console.log(error);
-          return false;
-        }
-        response.render("admin/post", {
-          title: "Post",
-          movie: data
-        });
-      });
-    }else{
-      response.render("admin/post", {
-        title: "Post",
-        _USER_: loginer
-      });
-    }
-  }else{
-    response.redirect("/admin/login");
-  }
-});
-
-app.delete("/api/admin/items/delete", function(request, response){
-  var id = mongoose.Types.ObjectId(request.query.id);
-  Movie.remove({"_id": id}, function(error, movie){
-    if(error){
-      console.log(error);
-      return false;
-    }
-    response.send({result: true});
-  });
-});
+app.delete("/api/admin/movie/delete", MovieRoutes.delete);
 
 app.get("*", function(request, response){
   response.status(404).render("404", {
