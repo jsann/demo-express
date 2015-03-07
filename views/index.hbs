@@ -7,13 +7,14 @@
         <a class="poster" href="/{{#equals type 1}}detail{{else}}special{{/equals}}/{{id}}">
           <img src="{{poster}}" alt="{{title}}">
           <div class="other">
-            <span class="time-loading"><span class="left"></span><span class="right"></span></span>
+            <span class="time-loading"><span class="left-clip"><i class="left"></i></span><span class="right-clip"><i class="right"></i></span></span>
             <i class="iconfont icon-play play"></i>
           </div>
         </a>
         <h4><a href="/{{#equals type 1}}detail{{else}}special{{/equals}}/{{id}}" title="{{title}}">{{title}}</a></h4>
         <p title="{{actor}}">{{actor}}</p>
         <p title="{{long}} min">{{long}} min</p>
+        {{> detail_model}}
       </li>
     {{/each}}
   </ul>

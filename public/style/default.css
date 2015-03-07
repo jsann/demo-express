@@ -114,6 +114,8 @@ html, body {
   float: left;
   width: 132px;
   margin: 0 0 20px 32px;
+  position: relative;
+  zoom: 1;
 }
 .movie-list li .poster {
   display: inline-block;
@@ -136,12 +138,17 @@ html, body {
   background-color: rgba(0, 0, 0, .7);
   position: absolute;
   top: 0;
+  opacity: 0;
+  transition: all .3s;
+}
+.movie-list li .poster:hover .other {
+  opacity: 1;
 }
 .movie-list li .poster .other .time-loading,
+.movie-list li .poster .other .time-loading .left-clip,
 .movie-list li .poster .other .time-loading .left,
-.movie-list li .poster .other .time-loading .left:after,
-.movie-list li .poster .other .time-loading .right,
-.movie-list li .poster .other .time-loading .right:after {
+.movie-list li .poster .other .time-loading .right-clip,
+.movie-list li .poster .other .time-loading .right {
   display: inline-block;
   border-radius: 50%;
   position: absolute;
@@ -155,38 +162,38 @@ html, body {
   height: 12px;
   border: #ccc solid 2px;
 }
+.movie-list li .poster .other .time-loading .left-clip,
 .movie-list li .poster .other .time-loading .left,
-.movie-list li .poster .other .time-loading .left:after,
-.movie-list li .poster .other .time-loading .right,
-.movie-list li .poster .other .time-loading .right:after {
+.movie-list li .poster .other .time-loading .right-clip,
+.movie-list li .poster .other .time-loading .right {
   width: 16px;
   height: 16px;
 }
-.movie-list li .poster .other .time-loading .left:after,
-.movie-list li .poster .other .time-loading .right:after {
+.movie-list li .poster .other .time-loading .left,
+.movie-list li .poster .other .time-loading .right {
   right: 0;
   top: 0;
   background-color: #000;
   content: "\20";
 }
-.movie-list li .poster .other .time-loading .left,
-.movie-list li .poster .other .time-loading .left:after {
+.movie-list li .poster .other .time-loading .left-clip,
+.movie-list li .poster .other .time-loading .left {
   clip: rect(0, 8px, 16px, 0);
 }
-.movie-list li .poster .other .time-loading .left:after {
-  transition: all 2s 1.7s;
+.movie-list li .poster .other .time-loading .left {
+  transition: all 1s 1s;
 }
-.movie-list li .poster:hover .other .time-loading .left:after {
+.movie-list li .poster .other:hover .time-loading .left {
   transform: rotate(180deg);
 }
-.movie-list li .poster .other .time-loading .right,
-.movie-list li .poster .other .time-loading .right:after {
+.movie-list li .poster .other .time-loading .right-clip,
+.movie-list li .poster .other .time-loading .right {
   clip: rect(0, 16px, 16px, 8px);
 }
-.movie-list li .poster .other .time-loading .right:after {
-  transition: all 2s;
+.movie-list li .poster .other .time-loading .right {
+  transition: all 1s .2s;
 }
-.movie-list li .poster:hover .other .time-loading .right:after {
+.movie-list li .poster .other:hover .time-loading .right {
   transform: rotate(180deg);
 }
 .movie-list li .poster .other .play {
@@ -201,6 +208,66 @@ html, body {
 .movie-list li p {
   font-size: 12px;
   color: #bbb;
+}
+
+.detail-model {
+  width: 320px;
+  padding: 20px;
+  font-size: 12px;
+  color: #ddd;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, .85);
+  position: absolute;
+  top: 0;
+  left: 146px;
+  z-index: 2;
+  display: none;
+}
+.detail-model:before {
+  content: "\20";
+  width: 0;
+  height: 0;
+  border: transparent solid 8px;
+  border-right-color: rgba(0, 0, 0, .9);
+  overflow: hidden;
+  position: absolute;
+  left: -16px;
+  top: 20px;
+}
+.detail-model p {
+  margin: 8px 0;
+}
+.detail-model h5 {
+  font-size: 16px;
+  color: #fff;
+  float: left;
+}
+.detail-model .long {
+  float: right;
+  margin-top: 5px;
+}
+.detail-model .summary {
+  line-height: 1.5em;
+  max-height: 4.5em;
+  overflow: hidden;
+}
+.detail-model .comment {
+  padding: 5px 0;
+  border-top: #999 solid 1px;
+  border-bottom: #999 solid 1px;
+}
+.detail-model .comment .comment-number {
+  float: right;
+}
+.detail-model .recommend {
+  padding-top: 5px;
+}
+.detail-model .recommend img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-left: 5px;
+  vertical-align: middle;
 }
 
 .sign-wrap {
