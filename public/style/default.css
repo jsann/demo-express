@@ -256,11 +256,26 @@ html, body {
   border-top: #999 solid 1px;
   border-bottom: #999 solid 1px;
 }
+.detail-model .comment i {
+  font-size: 16px !important;
+}
+.detail-model .comment i.active {
+  color: #f5b041;
+}
 .detail-model .comment .comment-number {
   float: right;
 }
+.detail-model .comment .comment-number i {
+  margin-left: 5px;
+  position: relative;
+  top: -1px;
+}
 .detail-model .recommend {
   padding-top: 5px;
+  text-align: right;
+}
+.detail-model .recommend span {
+  float: left;
 }
 .detail-model .recommend img {
   width: 20px;

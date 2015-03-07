@@ -16,6 +16,7 @@ var MovieSchemas = new mongoose.Schema({
   poster: String, //海报
   drawings: String, //题图
   uploader: String, //上传者
+  star: Number, //评分，1~5
   type: {type: Number, default: 1}, //1为普通，2为专题
   meta: {
     createAt: { //创建时间
