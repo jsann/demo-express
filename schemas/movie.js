@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-var MovieSchemas = new mongoose.Schema({
+var MovieSchema = new mongoose.Schema({
   // _id: Number,
   title: String, //标题
   transname: String, //译名
@@ -30,7 +30,7 @@ var MovieSchemas = new mongoose.Schema({
   }
 })
 
-MovieSchemas.pre("save", function(next){
+MovieSchema.pre("save", function(next){
   if(this.isNew){
     this.meta.createAt = this.meta.updateAt = Date.now();
   }else{
@@ -41,7 +41,7 @@ MovieSchemas.pre("save", function(next){
 })
 
 // 添加静态方法
-MovieSchemas.statics = {
+MovieSchema.statics = {
   fetch: function(callback){
     return this.find({}).sort("meta.createAt").exec(callback);
   },
@@ -50,4 +50,4 @@ MovieSchemas.statics = {
   }
 }
 
-module.exports = MovieSchemas;
+module.exports = MovieSchema;

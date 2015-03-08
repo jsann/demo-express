@@ -1,0 +1,16 @@
+<div class="wrap-header">
+  <h3>{{title}}</h3>
+  <div class="loginer">
+    {{#if _USER_}}
+      <img src="{{_USER_.avatar}}" alt="">
+      <a href="/user">{{_USER_.name}}</a>
+      <a href="javascript:;" class="login-out iconfont icon-out"></a>
+    {{else}}
+      <a href="/login">Login</a>
+    {{/if}}
+  </div>
+  <form class="search">
+    <input name="q" type="text" placeholder="Search..." value="{{q}}">
+    <button class="iconfont icon-search"></button>
+  </form>
+</div>

@@ -24,6 +24,7 @@ var RenderRoutes = {
       }
       response.render("detail", {
         title: data.title,
+        _USER_: request.session.loginer,
         movie: data
       });
     });
@@ -37,6 +38,7 @@ var RenderRoutes = {
       }
       response.render("special", {
         title: data.title,
+        _USER_: request.session.loginer,
         layout: "special_layout",
         movie: data
       });
@@ -57,6 +59,7 @@ var RenderRoutes = {
     if(loginer){
       response.render("user/index", {
         title: "User Center"
+        _USER_: request.session.loginer,
       });
     }else{
       response.redirect("/login");
@@ -97,6 +100,7 @@ var RenderRoutes = {
           }
           response.render("admin/post", {
             title: "Post",
+            _USER_: loginer
             movie: data
           });
         });
