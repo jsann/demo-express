@@ -109,8 +109,11 @@ html, body {
   float: right;
   padding: 0 32px;
   margin: 0 -32px 0 32px;
-  background-color: rgba(116, 192, 200, .7);
+  background-color: rgba(255, 255, 255, .5);
   width: 156px;
+}
+.wrapper .wrap-header .loginer a {
+  color: #999;
 }
 
 /* movie list */
@@ -350,11 +353,26 @@ html, body {
   vertical-align: middle;
   border-radius: 50%;
 }
-.side .loginer a, .wrap-header .loginer a {
+.side .loginer a {
   color: #fff;
 }
 .side .loginer .login-out, .wrap-header .loginer .login-out {
   float: right;
+}
+
+.side_menu {}
+.side_menu ul {
+  padding: 16px 16px 0;
+}
+.side_menu ul li {
+}
+.side_menu ul li a {
+  display: block;
+  padding: 5px 16px;
+  border-radius: 3px;
+}
+.side_menu ul li a:hover {
+  background-color: #dfdfdf;
 }
 
 footer {

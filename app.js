@@ -12,7 +12,7 @@ var helpers = require("./helpers/helpers");
 
 var RenderRoutes = require("./routes/render"),
     UserRoutes = require("./routes/user"),
-    MovieRoutes = require("./routes/movie.js");
+    MovieRoutes = require("./routes/movie");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname + "/public"))); //设置静态文件目录
@@ -59,6 +59,8 @@ app.post("/api/user/register", UserRoutes.register);
 app.post("/api/user/login", UserRoutes.login);
 
 app.get("/user", RenderRoutes.user);
+
+app.get("/user/profile", RenderRoutes.userProfile);
 
 app.get("/admin/", RenderRoutes.admin);
 
