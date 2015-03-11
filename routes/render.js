@@ -58,8 +58,19 @@ var RenderRoutes = {
     var loginer = request.session.loginer;
     if(loginer){
       response.render("user/index", {
-        title: "User Center"
-        _USER_: request.session.loginer,
+        title: "User Center",
+        _USER_: loginer
+      });
+    }else{
+      response.redirect("/login");
+    }
+  },
+  userProfile: function(request, response){
+    var loginer = request.session.loginer;
+    if(loginer){
+      response.render("user/profile", {
+        title: "Profile",
+        _USER_: loginer
       });
     }else{
       response.redirect("/login");
@@ -100,7 +111,7 @@ var RenderRoutes = {
           }
           response.render("admin/post", {
             title: "Post",
-            _USER_: loginer
+            _USER_: loginer,
             movie: data
           });
         });
