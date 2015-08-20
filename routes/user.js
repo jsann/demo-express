@@ -31,7 +31,7 @@ var UserRoutes = {
       }
       if(data){
         request.session.loginer = data;
-        response.send({result: true});
+        response.redirect("/user");
       }else{
         response.send({result: false, responseText: "用户名或者密码错误"});
       }
@@ -46,7 +46,7 @@ var UserRoutes = {
       }
       if(data){
         request.session.loginer = data;
-        response.send({result: true});
+        response.redirect("/admin")
       }else{
         response.send({result: false, responseText: "用户名或者密码错误"});
       }
