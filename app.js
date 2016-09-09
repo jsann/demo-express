@@ -1,5 +1,5 @@
 //端口从命令行获取‘PORT’参数 或者 默认值为3000
-var express = require("express"), port = process.env.PORT || 3000, app = express();
+var express = require("express"), port = process.env.PORT || 3010, app = express();
 
 var bodyParser = require("body-parser"),
     cookieParser = require("cookie-parser"),

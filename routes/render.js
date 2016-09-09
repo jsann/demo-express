@@ -59,6 +59,7 @@ var RenderRoutes = {
     if(loginer){
       response.render("user/index", {
         title: "User Center",
+        layout: "user_layout",
         _USER_: loginer
       });
     }else{
@@ -70,6 +71,7 @@ var RenderRoutes = {
     if(loginer){
       response.render("user/profile", {
         title: "Profile",
+        layout: "user_layout",
         _USER_: loginer
       });
     }else{

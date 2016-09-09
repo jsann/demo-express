@@ -19,6 +19,10 @@ $(function(){
   adminLoginForm.on("submit", adminLogin);
   moviePostForm.on("submit", moviePost);
 
+  /**
+   * movieList enter event
+   * @return {[type]} [description]
+   */
   function movieListEnter(){
     var li = $(this).parents("li"),
         detailModel = li.find(".detail-model"),
@@ -30,6 +34,10 @@ $(function(){
     }, 1800);
   }
 
+  /**
+   * movieList leave event
+   * @return {[type]} [description]
+   */
   function movieListLeave(){
     clearTimeout(movieListEnterTimeout);
     var li = $(this).parents("li"),
@@ -57,6 +65,10 @@ $(function(){
     })
   }
 
+  /**
+   * 登出
+   * @return {[type]} [description]
+   */
   function loginOut(){
     $.ajax({
       url: "/api/user/loginout",
@@ -134,6 +146,11 @@ $(function(){
     });
   }
 
+  /**
+   * 发布movie
+   * @param  {Event} event Event
+   * @return {[type]}       [description]
+   */
   function moviePost(event){
     event.preventDefault();
     $.ajax({
